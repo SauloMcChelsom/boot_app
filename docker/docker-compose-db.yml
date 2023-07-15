@@ -36,3 +36,6 @@ services:
 networks:
   docker-network:
     driver: bridge
+
+
+#http://localhost:16543/login?next=%2F
