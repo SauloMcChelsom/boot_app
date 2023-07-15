@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.app.boot_app.model.Order;
+import com.app.boot_app.projection.UserProjection;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
@@ -29,5 +30,20 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	
 	@Query(value = "update orders SET status = 'GUESTS_WHO_HAVE_ALREADY_CHECKED_IN' WHERE id = :id", nativeQuery = true)
 	void checkOut(@Param("id") Long id);
+
 	
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE tb_belonging SET position = :newPosition WHERE list_id = :listId AND game_id = :gameId")
+	void updateBelongingPosition(Long listId, Long gameId, Integer newPosition);
+
+	@Query(nativeQuery = true, value = """
+	SELECT tb_game.id, tb_game.title, tb_game.game_year AS gameYear, tb_game.img_url AS imgUrl,
+	tb_game.short_description AS shortDescription, tb_belonging.position
+	FROM tb_game
+	INNER JOIN tb_belonging ON tb_game.id = tb_belonging.game_id
+	WHERE tb_belonging.list_id = :listId
+	ORDER BY tb_belonging.position
+				""")
+	List<UserProjection> searchByList(Long listId);
+
 }
