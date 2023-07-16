@@ -1,10 +1,8 @@
-mvn spring-boot:build-image
 
-docker-compose -f docker-compose-db.yml up -d
 
+
+como instalar maven no windows
 https://mkyong.com/maven/how-to-install-maven-in-windows/
-
-
 
 
 Se este error aparcer
@@ -24,15 +22,21 @@ Se este error aparcer
 ```
 
 mvn -version
-mvn compile jib:dockerBuild
-mvnw clean compile jib:dockerBuild
 
+mvn compile jib:dockerBuild
+
+docker-compose -f ./docker/docker-compose.yml up -d
+
+docker stop boot_app
+
+CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS          PORTS                    NAMES
+09f2ed95f684   saulomcchelsom/boot_app:latest   "java -cp @/app/jib-…"   23 minutes ago   Up 23 minutes   0.0.0.0:8080->8080/tcp   boot_app
 
 #listar as image criada
 docker image ls
 
 #executar uma image criada
-docker run -dp 8080:80 afdd80fe5867
+docker run -dp 8080:8080 afdd80fe5867
 
 #lista a virtualização da imagem executada
 docker container ls
@@ -70,3 +74,27 @@ JDK 1.4 = 48,
 JDK 1.3 = 47,
 JDK 1.2 = 46,
 JDK 1.1 = 45
+
+
+
+
+### Tutorial oficial: 
+https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+### Passo 1 (PowerShell Admin): 
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+### Passo 2 (PowerShell Admin):
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+### Passo 3
+REINICIE O COMPUTADOR
+
+### Passo 4 (Download the Linux kernel update package):
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+### Passo 5 (PowerShell Admin):
+wsl --set-default-version 2
+
+### Passo 7 (Instale o docker):
+Tutorial: https://docs.docker.com/docker-for-windows/install/
