@@ -1,4 +1,4 @@
-package com.app.boot_app.projection;
+package com.app.boot_app.repository.projection;
 
 public interface UserProjection {
     Long getId();

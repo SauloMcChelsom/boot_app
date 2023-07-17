@@ -2,6 +2,7 @@ package com.app.boot_app.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import static java.lang.String.format;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import lombok.extern.slf4j.Slf4j;
 
 import com.app.boot_app.dto.client.ClienteConverter;
 import com.app.boot_app.dto.client.ClienteRequestDTO;
@@ -22,6 +24,7 @@ import com.app.boot_app.service.user.UserService;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 	
 	@Autowired
@@ -59,10 +62,11 @@ public class UserController {
 	    return new ResponseEntity<>(userlist, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("cpf/{id}")
-	public ResponseEntity<List<User>> getUserByCPF(@PathVariable("id") String cpf) {
+	@GetMapping("cpf/{cpf}")
+	public ResponseEntity<List<User>> getUserByCPF(@PathVariable("cpf") String cpf) {
+		log.info(format("Buscando dados de pessoa por cpf = %s!", cpf));
 		List<User> user = userService.findByCPF(cpf);
-	    return new ResponseEntity<>(user, HttpStatus.CREATED);
+	    return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@GetMapping("name/{id}")

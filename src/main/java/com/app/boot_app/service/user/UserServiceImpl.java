@@ -2,25 +2,35 @@ package com.app.boot_app.service.user;
 
 import java.util.List;
 import java.util.Optional;
+import static java.lang.String.format;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
-import com.app.boot_app.exeception.ClienteExistenteException;
 import com.app.boot_app.model.User;
 import com.app.boot_app.repository.UserRepository;
+import com.app.boot_app.shared.exeception.NotFoundException;
 
 @Service
-public class UserServiceImpl implements UserService{
+@Slf4j
+public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
 	
     @Override
     public User save(User user) {
-		if (this.userRepository.existCpf(user.getCpf())) {
-            throw new ClienteExistenteException("Cliente Existente", user.getCpf());
+		try {
+			log.info(format("existe cpf = %s!", user.getCpf()));
+			
+            this.userRepository.existCpf(user.getCpf());
+        } catch (Exception e) {
+			 log.error(format("existe cpf = %s!", user.getCpf()));
+			 log.error(format("Exception = %s!", e.getMessage()));
+			throw new NotFoundException("O cliente com cpf existe!");
         }
+		log.info(format("Sava um novo usuario!"));
         return this.userRepository.save(user);
     }
 
@@ -36,8 +46,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<User> findByCPF(String value) {
-		List<User> user = this.userRepository.findByCPF(value);
+	public List<User> findByCPF(String cpf) {
+		List<User> user = this.userRepository.findByCPF(cpf);
 		return user;
 	}
 

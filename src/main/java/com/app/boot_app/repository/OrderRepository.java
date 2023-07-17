@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.app.boot_app.model.Order;
-import com.app.boot_app.projection.UserProjection;
+import com.app.boot_app.repository.projection.UserProjection;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
