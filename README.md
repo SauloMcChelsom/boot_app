@@ -74,3 +74,8 @@ wsl --set-default-version 2
 
 ### Passo 7 (Instale o docker):
 Tutorial: https://docs.docker.com/docker-for-windows/install/
+
+
+
+### How to start up spring-boot application via command line?
+mvn spring-boot:run
