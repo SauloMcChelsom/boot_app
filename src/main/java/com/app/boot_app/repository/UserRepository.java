@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	List<User> findByCPF(@Param("cpf") String cpf);
 
 	@Query(value = "select * from tb_user where cpf = :cpf", nativeQuery = true)
-	boolean existCpf(String cpf);
+	public Iterable<User> existCpf(String cpf);
 	
 	@Query(value = "select * from tb_user where name = :name", nativeQuery = true)
 	List<User> findByName(@Param("name") String name);
