@@ -79,3 +79,17 @@ Tutorial: https://docs.docker.com/docker-for-windows/install/
 
 ### How to start up spring-boot application via command line?
 mvn spring-boot:run
+
+java -jar target/boot_app-0.0.9-SNAPSHOT.jar
+
+mvn clean install
+
+mvn test
+
+
+https://start.spring.io/
+
+java.Project.start 17 
+spring-boot 3.1.1
+Apache Maven 3.9.3
+Java version: 19.0.1
