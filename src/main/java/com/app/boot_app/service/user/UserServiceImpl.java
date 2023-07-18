@@ -12,6 +12,7 @@ import com.app.boot_app.model.User;
 import com.app.boot_app.repository.UserRepository;
 import com.app.boot_app.shared.exeception.BadRequestException;
 import com.app.boot_app.shared.exeception.ConflictException;
+import com.app.boot_app.shared.exeception.InternalServerErrorException;
 import com.app.boot_app.shared.exeception.NotFoundException;
 
 @Service
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
         } catch (Exception e) {
 			log.error(format("Exception = %s!", e.getMessage()));
-			throw new BadRequestException("Error in save user");
+			throw new InternalServerErrorException("Error in save user");
         }
     }
 
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
         } catch (Exception e) {
 			log.error(format("Exception: %s!", e.getMessage()));
-			throw new NotFoundException("Error in find "+ user.getCpf() +"");
+			throw new InternalServerErrorException("Error in find "+ user.getCpf() +"");
         }
     }
 
@@ -69,8 +70,31 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findById(Long id) {
-		Optional<User> user = this.userRepository.findById(id);
-		return user.get();
+ 		Boolean isExist = false;
+		User user = null;
+
+		try {
+			log.info(format("call repository existsById()"));
+            isExist = this.userRepository.existsById(id);
+
+			log.info(format("if the user exists, set the values"));
+			if(isExist){
+				user = this.userRepository.findById(id).get();
+			}
+
+        } catch (Exception e) {
+			log.error(format("Exception: %s!", e.getMessage()));
+			throw new InternalServerErrorException("Error in find por id");
+        }
+		
+		log.info(format("user exist"));
+		if(isExist == false){
+			log.info(format("user not exist"));
+			throw new NotFoundException("user not exist");
+		}
+
+		log.info(format("user find with successful"));
+		return user;
 	}
 
 	@Override

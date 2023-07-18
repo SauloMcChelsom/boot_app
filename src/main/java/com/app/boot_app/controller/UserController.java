@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,53 +29,57 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping
-	public ResponseEntity<User>  createUser(@RequestBody User user) {
-		  User savedUser = userService.save(user);
-	      return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
-	}
-
-	@PostMapping("/add-user")
-    public ClienteResponseDTO salvar(@RequestBody @Validated ClienteRequestDTO requestDTO) {
-        User clienteSalvo = userService.save(new User(
+    public ClienteResponseDTO save(@RequestBody @Validated ClienteRequestDTO requestDTO) {
+        log.info(format("START: Registering a new user"));
+		User clienteSalvo = userService.save(new User(
 			requestDTO.getId(),
             requestDTO.getName(),
             requestDTO.getPhone(),
 			requestDTO.getCpf()
         ));
-
+		log.info(format("finished"));
         return ClienteConverter.converter(clienteSalvo);
     }
 	
 	@GetMapping
-	public ResponseEntity<List<User>>  getUserAll() {
-		List<User> savedUser = userService.findAll();
-	    return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+	public List<ClienteResponseDTO> getUserAll() {
+		log.info(format("Searching all users"));
+		List<User> userList = userService.findAll();
+		log.info(format("finished"));
+		return ClienteConverter.converter(userList);
 	}
 	
 	@GetMapping("id/{id}")
-	public ResponseEntity<List<User>>  getUserId(@PathVariable("id") Long id) {
-		List<User> userlist = new ArrayList<User>();
+	public List<ClienteResponseDTO> getUserById(@PathVariable("id") Long id) {
+		log.info(format("Fetching user data by id = %s!", id.toString()));
+		List<User> userList = new ArrayList<User>();
 		User user = userService.findById(id);
-		userlist.add(user);
-	    return new ResponseEntity<>(userlist, HttpStatus.CREATED);
+		userList.add(user);
+		log.info(format("finished"));
+		return ClienteConverter.converter(userList);
 	}
 	
 	@GetMapping("cpf/{cpf}")
-	public ResponseEntity<List<User>> getUserByCPF(@PathVariable("cpf") String cpf) {
-		log.info(format("Buscando dados de pessoa por cpf = %s!", cpf));
+	public List<ClienteResponseDTO> getUserByCPF(@PathVariable("cpf") String cpf) {
+		log.info(format("Fetching user data by cpf= %s!", cpf));
 		List<User> user = userService.findByCPF(cpf);
-	    return new ResponseEntity<>(user, HttpStatus.OK);
+		log.info(format("finished"));
+		return ClienteConverter.converter(user);
 	}
 	
-	@GetMapping("name/{id}")
-	public ResponseEntity<List<User>> getUserByName(@PathVariable("id") String name) {
+	@GetMapping("name/{name}")
+	public List<ClienteResponseDTO> getUserByName(@PathVariable("name") String name) {
+		log.info(format("Searching user data by name = %s!", name));
 		List<User> user = userService.findByName(name);
-	    return new ResponseEntity<>(user, HttpStatus.CREATED);
+		log.info(format("finished"));
+	    return ClienteConverter.converter(user);
 	}
 	
-	@GetMapping("phone/{id}")
-	public ResponseEntity<List<User>> getUserByPhone(@PathVariable("id") String phone) {
+	@GetMapping("phone/{phone}")
+	public List<ClienteResponseDTO> getUserByPhone(@PathVariable("phone") String phone) {
+		log.info(format("Fetching user data by phone = %s!", phone));
 		List<User> user = userService.findByPhone(phone);
-	    return new ResponseEntity<>(user, HttpStatus.CREATED);
+		log.info(format("finished"));
+	    return ClienteConverter.converter(user);
 	}
 }
