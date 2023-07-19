@@ -93,3 +93,10 @@ java.Project.start 17
 spring-boot 3.1.1
 Apache Maven 3.9.3
 Java version: 19.0.1
+
+
+
+http://localhost:8080/h2-console/
+JDBC URL:jdbc:h2:mem:testdb
+User Name: saulo
+Password:123
