@@ -116,7 +116,6 @@ public class UserServiceImpl implements UserService {
 			throw new InternalServerErrorException("error in find cpf");
         }
 
-
 		log.info(format("cpf exist"));
 		if(isExist == false){
 			log.info(format("cpf not exist"));
