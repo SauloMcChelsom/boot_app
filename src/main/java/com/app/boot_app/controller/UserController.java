@@ -29,7 +29,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping
-    public ClienteResponseDTO save(@RequestBody @Validated ClienteRequestDTO requestDTO) {
+    public ClienteResponseDTO save(@Validated @RequestBody final ClienteRequestDTO requestDTO) {
         log.info(format("[START]: Registering a new user"));
 		User clienteSalvo = userService.save(new User(
 			requestDTO.getId(),
