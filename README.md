@@ -5,21 +5,6 @@ como instalar maven no windows
 https://mkyong.com/maven/how-to-install-maven-in-windows/
 
 
-Se este error aparcer
-```bash
-# deletar confi.json
-## C:\Users\saulo\.docker
-[ERROR] Failed to execute goal com.google.cloud.tools:jib-maven-plugin:3.3.2:dockerBuild (default-cli) on project boot_app: Build to Docker daemon failed, perhaps you should make sure your credentials for 'registry-1.docker.io/library/conf_server_image' are set up correctly. See https://github.com/GoogleContainerTools/jib/blob/master/docs/faq.md#what-should-i-do-when-the-registry-responds-with-unauthorized for help: Unauthorized for registry-1.docker.io/library/conf_server_image: 401 Unauthorized
-[ERROR] GET https://auth.docker.io/token?service=registry.docker.io&scope=repository:library/conf_server_image:pull
-[ERROR] {"details":"incorrect username or password"}
-[ERROR] -> [Help 1]
-[ERROR]
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR]
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
-```
 
 mvn -version
 
