@@ -25,8 +25,8 @@ public class OrderController {
 	
 	@PostMapping
 	public ResponseEntity<Order> create(@RequestBody Order user) {
-		  Order savedOrder = orderService.save(user);
-	      return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+		Order savedOrder = orderService.save(user);
+	    return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
 	}
 	
 	@GetMapping
