@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.boot_app.dto.order.OrderConverter;
+import com.app.boot_app.dto.order.OrderRequestDTO;
+import com.app.boot_app.dto.order.OrderResponseDTO;
 import com.app.boot_app.model.Order;
 import com.app.boot_app.service.order.OrderService;
 
@@ -24,9 +28,22 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@PostMapping
-	public ResponseEntity<Order> create(@RequestBody Order user) {
-		Order savedOrder = orderService.save(user);
-	    return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+	public OrderResponseDTO create(@Validated @RequestBody final  OrderRequestDTO order) {
+		Order savedOrder = orderService.save(new Order(
+			order.getId(),
+			order.getUser_id(),
+			order.getStatus(),
+			order.getHorary_check_in(),
+			order.getHorary_check_out(),
+			order.getDaily_price_monday_to_friday(),
+			order.getDaily_price_weekends(),
+			order.getPrice_of_car_spaces_monday_to_friday(),
+			order.getPrice_of_car_spaces_weekend(),
+			order.getAdditional_fee_percentage_of_later_check_in(),
+			order.getList_days_monday_to_friday(),
+			order.getList_days_weekend()
+		));
+	    return OrderConverter.converter(savedOrder);
 	}
 	
 	@GetMapping

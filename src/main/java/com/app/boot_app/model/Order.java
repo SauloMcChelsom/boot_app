@@ -47,7 +47,29 @@ public class Order {
 	
 	@Column(nullable = false)
     private String[] list_days_weekend;
+
+	
     
+	public Order() {}
+	
+	public Order(Long id, int user_id, String status, String horary_check_in, String horary_check_out,
+			int daily_price_monday_to_friday, int daily_price_weekends, int price_of_car_spaces_monday_to_friday,
+			int price_of_car_spaces_weekend, int additional_fee_percentage_of_later_check_in,
+			String[] list_days_monday_to_friday, String[] list_days_weekend) {
+		this.id = id;
+		this.user_id = user_id;
+		this.status = status;
+		this.horary_check_in = horary_check_in;
+		this.horary_check_out = horary_check_out;
+		this.daily_price_monday_to_friday = daily_price_monday_to_friday;
+		this.daily_price_weekends = daily_price_weekends;
+		this.price_of_car_spaces_monday_to_friday = price_of_car_spaces_monday_to_friday;
+		this.price_of_car_spaces_weekend = price_of_car_spaces_weekend;
+		this.additional_fee_percentage_of_later_check_in = additional_fee_percentage_of_later_check_in;
+		this.list_days_monday_to_friday = list_days_monday_to_friday;
+		this.list_days_weekend = list_days_weekend;
+	}
+
 	public Long getId() {
 		return id;
 	}
