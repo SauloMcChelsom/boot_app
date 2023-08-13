@@ -195,7 +195,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> findAll() {
-		return this.userRepository.findAll();
+		log.info(format("call repository findAll()"));
+		List<User> user = this.userRepository.user();
+		return user;
 	}
 
 	public Boolean ExistCPF(User user) {

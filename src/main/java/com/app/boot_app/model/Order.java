@@ -48,8 +48,6 @@ public class Order {
 	@Column(nullable = false)
     private String[] list_days_weekend;
 
-	
-    
 	public Order() {}
 	
 	public Order(Long id, int user_id, String status, String horary_check_in, String horary_check_out,

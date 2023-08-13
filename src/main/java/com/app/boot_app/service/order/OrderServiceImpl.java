@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.app.boot_app.model.Order;
 import com.app.boot_app.repository.OrderRepository;
 
-@Service
+@Service 
 public class OrderServiceImpl implements OrderService{
 	
 	@Autowired

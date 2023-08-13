@@ -9,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 import com.app.boot_app.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+	@Query(value = "select * from tb_user", nativeQuery = true)
+	List<User> user();
+
 	@Query(value = "select * from tb_user where cpf = :cpf", nativeQuery = true)
 	List<User> findByCPF(@Param("cpf") String cpf);
 

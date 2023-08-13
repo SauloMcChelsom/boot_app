@@ -10,7 +10,7 @@ public class ClienteResponseDTO {
 
     private String cpf;
 
-    public ClienteResponseDTO(Long id, String name, String phone, String cpf) {
+    public ClienteResponseDTO(Long id,  String cpf, String name, String phone) {
         this.id = id;
         this.name = name;
         this.phone = phone;

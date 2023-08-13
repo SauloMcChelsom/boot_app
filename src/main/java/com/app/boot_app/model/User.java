@@ -5,25 +5,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_user")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	private String cpf;
+
     private String name;
     
     private String phone;
     
-    private String cpf;
-
     public User() {}
 	
-	public User(Long id, String name, String phone, String cpf) {
+	//ID  	CPF  	NAME  	PHONE  
+	public User(Long id, String cpf, String name, String phone) {
         this.id = id;
         this.name = name;
         this.phone = phone;
