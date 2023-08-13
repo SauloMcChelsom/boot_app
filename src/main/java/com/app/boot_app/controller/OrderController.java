@@ -26,7 +26,7 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@PostMapping
-	public OrderResponseDTO create(@Validated @RequestBody final  OrderRequestDTO order) {
+	public OrderResponseDTO create(@Validated @RequestBody final OrderRequestDTO order) {
 		Order savedOrder = orderService.save(new Order(
 			order.getId(),
 			order.getUser_id(),

@@ -1,6 +1,5 @@
 package com.app.boot_app.dto.order;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class OrderRequestDTO {
@@ -8,7 +7,6 @@ public class OrderRequestDTO {
    	private Long id;
 
     @NotNull
-    @NotEmpty
 	private int user_id;
 	private String status;
     private String horary_check_in;
