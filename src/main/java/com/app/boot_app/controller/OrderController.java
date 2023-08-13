@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,52 +45,52 @@ public class OrderController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Order>>  getUserAll() {
+	public List<OrderResponseDTO> getOrderAll() {
 		List<Order> order = orderService.findAll();
-	    return new ResponseEntity<>(order, HttpStatus.CREATED);
+	    return OrderConverter.converter(order);
 	}
 	
 	@GetMapping("id/{id}")
-	public ResponseEntity<List<Order>> getOrderById(@PathVariable("id") Long id) {
+	public List<OrderResponseDTO> getOrderById(@PathVariable("id") Long id) {
 		List<Order> orderlist = new ArrayList<Order>();
 		Order order = orderService.findById(id);
 		orderlist.add(order);
-	    return new ResponseEntity<>(orderlist, HttpStatus.CREATED);
+	    return OrderConverter.converter(orderlist);
 	}
 	
 	@GetMapping("user_id/{id}")
-	public ResponseEntity<List<Order>> getOrderByUserId(@PathVariable("id") int id) {
+	public List<OrderResponseDTO> getOrderByUserId(@PathVariable("id") int id) {
 		List<Order> order = orderService.getOrderByUserId(id);
-	    return new ResponseEntity<>(order, HttpStatus.CREATED);
+	    return OrderConverter.converter(order);
 	}
 	
 	@GetMapping("status/GUESTS_WHO_ARE_STILL_AT_THE_HOTEL")
-	public ResponseEntity<List<Order>> getUserByOderGuest() {
+	public List<OrderResponseDTO> getUserByOderGuest() {
 		List<Order> order = orderService.getUserByOderGuest();
-	    return new ResponseEntity<>(order, HttpStatus.CREATED);
+	    return OrderConverter.converter(order);
 	}
 	
 	@GetMapping("status/GUESTS_WHO_HAVE_RESERVATIONS_BUT_HAVENT_CHECKED_IN")
-	public ResponseEntity<List<Order>> getUserByOderGuestNotCheckIn() {
+	public List<OrderResponseDTO> getUserByOderGuestNotCheckIn() {
 		List<Order> order = orderService.getUserByOderGuestNotCheckIn();
-	    return new ResponseEntity<>(order, HttpStatus.CREATED);
+	    return OrderConverter.converter(order);
 	}
 	
 	@GetMapping("status/GUESTS_WHO_HAVE_ALREADY_CHECKED_IN")
-	public ResponseEntity<List<Order>> getUserByOderGuestHaveAlreadyCheckIn() {
+	public List<OrderResponseDTO> getUserByOderGuestHaveAlreadyCheckIn() {
 		List<Order> order = orderService.getUserByOderGuestHaveAlreadyCheckIn();
-	    return new ResponseEntity<>(order, HttpStatus.CREATED);
+	    return OrderConverter.converter(order);
 	}
 	
 	@GetMapping("check-in/order/{id}")
-	public ResponseEntity<Order> checkIn(@PathVariable("id") Long id) {
+	public OrderResponseDTO checkIn(@PathVariable("id") Long id) {
 		Order order = orderService.checkIn(id);
-	    return new ResponseEntity<>(order, HttpStatus.CREATED);
+	    return OrderConverter.converter(order);
 	}
 	
 	@GetMapping("check-out/order/{id}")
-	public ResponseEntity<Order> checkOut(@PathVariable("id") Long id) {
+	public OrderResponseDTO checkOut(@PathVariable("id") Long id) {
 		Order order = orderService.checkOut(id);
-	    return new ResponseEntity<>(order, HttpStatus.CREATED);
+	    return OrderConverter.converter(order);
 	}
 }
